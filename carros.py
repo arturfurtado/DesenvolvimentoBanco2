@@ -1,4 +1,6 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+
 
 class CarSystem:
     def __init__(self, connection_string):
@@ -76,43 +78,8 @@ class CarSystem:
 connection_string = "mongodb://localhost:27017"
 car_system = CarSystem(connection_string)
 
-marca_data = {
-    "nome": "Ford"
-}
-marca_id = car_system.create_marca(marca_data)
-print(f"Created Marca with ID: {marca_id}")
 
-marca = car_system.read_marca(marca_id)
-print(f"Read Marca: {marca}")
-
-updated_marca_data = {
-    "nome": "Ford Motors"
-}
-update_result = car_system.update_marca(marca_id, updated_marca_data)
-print(f"Update Marca successful: {update_result}")
-
-delete_result = car_system.delete_marca(marca_id)
-print(f"Delete Marca successful: {delete_result}")
-
-# Obter todas as marcas
-marcas = car_system.get_all_marcas()
-print("All Marcas:")
-for marca in marcas:
-    print(marca)
-
-# Obter todos os modelos
-modelos = car_system.get_all_modelos()
-print("All Modelos:")
-for modelo in modelos: 
-    print(modelo)
-
-# Obter todos os carros
-carros = car_system.get_all_carros()
-print("All Carros:")
-for carro in carros:
-    print(carro)
-
-# Exemplo de inserção de valores em carro
+# Exemplo de Create (criação)
 carro_data = {
     "marca": "Ford",
     "modelo": "Mustang",
@@ -120,18 +87,20 @@ carro_data = {
     "cor": "vermelho",
     "preco": 250000
 }
-
 carro_id = car_system.create_carro(carro_data)
 print(f"Created Carro with ID: {carro_id}")
 
-# Exemplo de inserção de valores em modelo
-modelo_data = {
-    "marca": "Chevrolet",
-    "nome": "Corsa",
-    "ano_fabricacao": 2022,
-    "potencia": 450,
-    "tipo": "esportivo"
-}
+# Exemplo de Read (leitura)
+carro = car_system.read_carro(carro_id)
+print(f"Carro Details:\n{carro}")
 
-modelo_id = car_system.create_modelo(modelo_data)
-print(f"Created Modelo with ID: {modelo_id}")
+# Exemplo de Update (atualização)
+updated_carro_data = {
+    "preco": 270000
+}
+update_result = car_system.update_carro(carro_id, updated_carro_data)
+print(f"Update Carro successful: {update_result}")
+
+# Exemplo de Delete (exclusão)
+delete_result = car_system.delete_carro(carro_id)
+print(f"Delete Carro successful: {delete_result}")
